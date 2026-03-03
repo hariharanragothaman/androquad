@@ -61,7 +61,7 @@
 // *******************************************************************************************************************************
 // Optional Sensors
 // Warning:  If you enable HeadingMagHold or AltitudeHold and do not have the correct sensors connected, the flight software may hang
-// For more information on how to activate theese features with your transmitter
+// For more information on how to activate these features with your transmitter
 // Please refer to http://aeroquad.com/showwiki.php?title=Using+the+transmitters+sticks+and+switches+to+operate+your+AeroQuad
 // *******************************************************************************************************************************
 #define HeadingMagHold				// Enables Magnetometer, gets automatically selected if CHR6DM is defined
@@ -106,7 +106,7 @@
 #define SKETCH_SERIAL_SUM_PPM SERIAL_SUM_PPM_2		//For Robe/Hitec/Futaba/Turnigy9X+Er9X
 //#define SKETCH_SERIAL_SUM_PPM SERIAL_SUM_PPM_3	//For some Hitec/Sanwa/Others
 
-//#define UseAnalogRSSIReader	// Reads RSSI for receiver failsafe, NEEDS A RECEIVER WITH FAILSAVE CONNECTED ON PIN A6 OF THE SHIELD
+//#define UseAnalogRSSIReader	// Reads RSSI for receiver failsafe, NEEDS A RECEIVER WITH FAILSAFE CONNECTED ON PIN A6 OF THE SHIELD
 //#define UseEzUHFRSSIReader	// Reads RSSI and Signal quality on channel 7(RSSI) and 8(Signal Quality) of the EzUHF receiver (Receiver have to be configures this way)
 //#define UseSBUSRSSIReader		
 

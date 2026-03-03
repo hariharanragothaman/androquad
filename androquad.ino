@@ -13,7 +13,7 @@
 #endif
 
 #if defined(ReceiverSBUS) && defined(SlowTelemetry)
-  #error "Receiver SWBUS and SlowTelemetry are in conflict for Seria2, they can't be used together"
+  #error "Receiver SBUS and SlowTelemetry are in conflict for Serial2, they can't be used together"
 #endif
 
 #if defined (CameraTXControl) && !defined (CameraControl)
@@ -26,7 +26,7 @@
 #include "AeroQuad.h"
 #include "PID.h"
 #include <AQMath.h>
-#include <FourtOrderFilter.h>
+#include <FourthOrderFilter.h>
 #ifdef BattMonitor
   #include <BatteryMonitorTypes.h>
 #endif
@@ -310,7 +310,7 @@
   // Accelerometer declaration
   #include <Accelerometer_ADXL500.h>
 
-  // Reveiver declaration
+  // Receiver declaration
   #define OLD_RECEIVER_PIN_ORDER
   #define RECEIVER_MEGA
 
@@ -1322,7 +1322,7 @@ void setup() {
     vehicleState |= ALTITUDEHOLD_ENABLED;
   #endif
   #ifdef AltitudeHoldRangeFinder
-    inititalizeRangeFinders();
+    initializeRangeFinders();
     vehicleState |= RANGE_ENABLED;
     PID[SONAR_ALTITUDE_HOLD_PID_IDX].P = PID[BARO_ALTITUDE_HOLD_PID_IDX].P*2;
     PID[SONAR_ALTITUDE_HOLD_PID_IDX].I = PID[BARO_ALTITUDE_HOLD_PID_IDX].I;
@@ -1390,17 +1390,17 @@ void process100HzTask() {
     
   calculateKinematics(gyroRate[XAXIS], gyroRate[YAXIS], gyroRate[ZAXIS], filteredAccel[XAXIS], filteredAccel[YAXIS], filteredAccel[ZAXIS], G_Dt);
   
-  #if defined AltitudeHoldBaro || defined AltitudeHoldRangeFinder
+  #if defined(AltitudeHoldBaro) || defined(AltitudeHoldRangeFinder)
     zVelocity = (filteredAccel[ZAXIS] * (1 - accelOneG * invSqrt(isq(filteredAccel[XAXIS]) + isq(filteredAccel[YAXIS]) + isq(filteredAccel[ZAXIS])))) - runTimeAccelBias[ZAXIS] - runtimeZBias;
-    if (!runtimaZBiasInitialized) {
+    if (!runtimeZBiasInitialized) {
       runtimeZBias = (filteredAccel[ZAXIS] * (1 - accelOneG * invSqrt(isq(filteredAccel[XAXIS]) + isq(filteredAccel[YAXIS]) + isq(filteredAccel[ZAXIS])))) - runTimeAccelBias[ZAXIS];
-      runtimaZBiasInitialized = true;
+      runtimeZBiasInitialized = true;
     }
     estimatedZVelocity += zVelocity;
     estimatedZVelocity = (velocityCompFilter1 * zVelocity) + (velocityCompFilter2 * estimatedZVelocity);
   #endif    
 
-  #if defined(AltitudeHoldBaro)
+  #ifdef AltitudeHoldBaro
     measureBaroSum(); 
     if (frameCounter % THROTTLE_ADJUST_TASK_SPEED == 0) {  //  50 Hz tasks
       evaluateBaroAltitude();
@@ -1529,7 +1529,7 @@ void process1HzTask() {
 }
 
 /*******************************************************************
- * Main loop funtions
+ * Main loop functions
  ******************************************************************/
 void loop () {
   
